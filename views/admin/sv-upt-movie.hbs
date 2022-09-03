@@ -1,0 +1,78 @@
+<main>
+
+  <div class="card">
+    <div class="card-header">
+      Movie form
+    </div>
+    <div class="card-body">
+
+      <form method="POST" action="{{#if editMode}}/admin/edit-movie{{else}}/admin/add-movie{{/if}}">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name" name="Name" value="{{#if editMode}}{{movie.name}}{{/if}}" />
+
+        </div>
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender:</label>
+
+          {{#if editMode}}
+
+          <select class="form-select" name="Gender" id="gender">              
+              <option value="Accion" {{#if (isEqual movie.gender "Accion")}}selected{{/if}}>Accion</option>
+              <option value="Terror" {{#if (isEqual movie.gender "Terror")}}selected{{/if}}>Terror</option>
+              <option value="Comedia" {{#if (isEqual movie.gender "Comedia")}}selected{{/if}}>Comedia</option>
+              <option value="Suspenso" {{#if (isEqual movie.gender "Suspenso")}}selected{{/if}}>Suspenso</option>
+              <option value="Documentales" {{#if (isEqual movie.gender "Documentales")}}selected{{/if}}>Documentales</option>
+          </select>
+
+          {{else}}
+          
+          <select class="form-select" name="Gender" id="gender">
+              <option disabled selected>Open this select menu</option>
+              <option value="Accion">Accion</option>
+              <option value="Terror">Terror</option>
+              <option value="Comedia">Comedia</option>
+              <option value="Suspenso">Suspenso</option>
+              <option value="Documentales">Documentales</option>
+          </select>
+
+          {{/if}}
+
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Status:</label>
+          
+          {{#if editMode}}
+
+          <select class="form-select" name="Status" id="status">
+              <option value="Activo" {{#if (isEqual movie.status "Activo")}}selected{{/if}}>Activo</option>
+              <option value="Inactivo" {{#if (isEqual movie.status "Inactivo")}}selected{{/if}}>Inactivo</option>
+          </select>
+
+          {{else}}
+          
+          <select class="form-select" name="Status" id="status">
+              <option value="Activo" selected>Activo</option>
+          </select>
+
+          {{/if}}
+          
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="Description" class="form-control" id="description" rows="5">{{#if editMode}}{{movie.description}}{{/if}}</textarea>
+        </div>
+
+        {{#if editMode}}
+
+          <input type="hidden" name="MovieId" value="{{movie.id}}">
+
+        {{/if}}
+
+        <button type="submit" class="btn btn-primary">{{#if editMode}}Update{{else}}Add{{/if}}</button>
+      </form>
+
+    </div>
+  </div>
+
+</main>

@@ -1,0 +1,56 @@
+<main>
+
+  {{#if hasMovies}}
+
+    {{!-- No funciona el filtrar --}}
+
+    <select class="form-select mb-3" name="Gender" id="gender">
+
+      <option disabled selected>Filter</option>
+      <option value="Accion">Accion</option>
+      <option value="Terror">Terror</option>
+      <option value="Comedia">Comedia</option>
+      <option value="Suspenso">Suspenso</option>
+      <option value="Documentales">Documentales</option>
+
+    </select>
+
+    <h1>Movie list</h1>
+
+    <div class="row">
+      {{#each movs}}
+
+<div class="col-md-4 mb-3">
+          <div class="card text border-{{#if (isEqual this.status "Activo")}}success{{else}}danger{{/if}}">
+            <div class="card-body text-{{#if (isEqual this.status "Activo")}}success{{else}}danger{{/if}}">
+              <h2 class="card-title">{{this.status}}</h2>
+              <p class="card-text">Nombre: {{this.name}}</p>
+              <p class="card-text">Genero: {{this.gender}}</p>
+              <p class="card-text">Estatus: {{this.status}}</p>
+              <p class="card-text">Descripcion: {{this.description}}</p>
+              
+
+              <form action="/admin/delete-movie" method="post">
+
+<a
+                href="edit-movie/{{this.id}}?edit=true"
+                class="btn btn-outline-primary me-md-2"
+              >edit</a>
+
+                <input type="hidden" name="MovieId" value="{{this.id}}" />
+                <button class="btn btn-outline-danger">delete</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      {{/each}}
+    </div>
+  {{else}}
+
+    <h1>No movies found!</h1>
+
+  {{/if}}
+
+</main>
